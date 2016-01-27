@@ -16,7 +16,7 @@ resolve('foo', process.cwd()).then(function (dir) {
 });
 
 // sync
-var dir = resolve('bar', process.cwd());
+var dir = resolve.sync('bar', process.cwd());
 // throws Error('package not found bar')
 ```
 
