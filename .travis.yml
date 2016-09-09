@@ -16,6 +16,7 @@ before_script:
   - npm prune
 after_success:
 # custom travis_after_all script under @remy's private gist
+  - echo $TEST_DELETE_ME
   - 'curl -Lo travis_after_all.py https://git.io/vzaBe'
   - python travis_after_all.py
   - 'export $(cat .to_export_back) &> /dev/null'
