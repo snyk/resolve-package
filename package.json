@@ -8,7 +8,9 @@
   "scripts": {
     "lint": "jscs lib/*.js -v",
     "test": "npm run lint && tap test/*.test.js --cov --timeout=60",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "snyk"
@@ -17,7 +19,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "debug": "^2.2.0",
-    "then-fs": "^2.0.0"
+    "then-fs": "^2.0.0",
+    "snyk": "^1.59.0"
   },
   "devDependencies": {
     "es6-promise": "^3.0.2",
@@ -30,5 +33,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Snyk/resolve-package.git"
-  }
+  },
+  "snyk": true
 }
