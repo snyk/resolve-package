@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "debug": "^4.1.1",
-    "then-fs": "^2.0.0"
+    "promise-fs": "^2.1.1"
   },
   "devDependencies": {
     "es6-promise": "^4.2.8",
