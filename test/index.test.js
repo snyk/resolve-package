@@ -31,7 +31,7 @@ var fs = {
 };
 
 var resolve = proxyquire('../lib/index', {
-  'then-fs': fs,
+  'promise-fs': fs,
 });
 
 test('resolve immediately', function (t) {
