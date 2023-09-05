@@ -12,7 +12,3 @@ workflows:
           context:
             - snyk-bot-slack
           channel: os-team-managed-alerts
-          filters:
-            branches:
-              ignore:
-                - main
