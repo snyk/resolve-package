@@ -3,16 +3,16 @@ version: 2.1
 orbs:
   prodsec: snyk/prodsec-orb@1
 
+defaults: &defaults
+  resource_class: small
+  docker:
+    - image: cimg/node:24.16
+
 jobs:
   security-scans:
-    resource_class: small
-    docker:
-      - image: cimg/node:22.2.0
+    <<: *defaults
     steps:
       - checkout
-      - run:
-          name: Use snyk-main npmjs user
-          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
       - run:
           name: Install dependencies
           command: npm install
@@ -21,6 +21,33 @@ jobs:
           release-branch: master
           open-source-additional-arguments: --exclude=test
           iac-scan: disabled
+
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Test
+          command: npm test
+
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+      - run:
+          name: Release
+          command: |
+            export NPM_ID_TOKEN=$(circleci run oidc get --claims '{"aud": "npm:registry.npmjs.org"}')
+            npx semantic-release@25.0.3
 
 workflows:
   version: 2
@@ -41,3 +68,19 @@ workflows:
           context:
             - open_source-managed
             - nodejs-install
+
+      - test:
+          name: Test
+
+      - release:
+          name: Release
+          requires:
+            - Security Scans
+            - Test
+          context:
+            - nodejs-install
+            - github-release
+          filters:
+            branches:
+              only:
+                - master
