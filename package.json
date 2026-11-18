@@ -15,13 +15,13 @@
   "author": "Remy Sharp",
   "license": "Apache-2.0",
   "dependencies": {
-    "debug": "^4.1.1"
+    "debug": "^4.4.3"
   },
   "devDependencies": {
-    "@types/jest": "^29.0.0",
-    "eslint": "^10.6.0",
-    "globals": "^17.7.0",
-    "jest": "^30.4.2"
+    "@types/jest": "^29.5.14",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "jest": "^30.5.2"
   },
   "repository": {
     "type": "git",
